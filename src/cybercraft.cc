@@ -263,7 +263,7 @@ int main(int argc, char* argv[]) {
    if  (cmd == "--about") {
     printMaskot();
   } else if (cmd == "--check") {
-     generatePlotingEngine("main", "--check", "checkProject");
+    // generatePlotingEngine("main", "--check", "checkProject");
      checkGitleaksIgnore();
      check_cy_config();
      checkPreCommitConfig();
