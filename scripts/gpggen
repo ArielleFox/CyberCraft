@@ -1,0 +1,30 @@
+#!/bin/env python3
+import os
+
+def template():
+	KeyType = 'DSA'
+	SubkeyLength = 1024
+	SubkeyType = "ELG-E"
+	DSAKeyLength = 1024
+	NameReal = "Automated Key"
+	NameComment = "Cybercraft Standard User Key"
+	NameEmail = "foo@bar.foobar"
+	ExpireDate = 0
+	Passphrase = input("Password: ")
+	os.system(f"echo '%echo Generating a basic OpenPGP key' > foo")
+	os.system(f"echo 'Key-Type: {KeyType}' >> foo")
+	os.system(f"echo 'Subkey-Type: {SubkeyType}' >> foo")
+	os.system(f"echo 'Subkey-Length: {SubkeyLength}' >> foo")
+	os.system(f"echo 'Name-Real: {NameReal}' >> foo")
+	os.system(f"echo 'Name-Comment: {NameComment}' >> foo")
+	os.system(f"echo 'Name-Email: {NameEmail}' >> foo")
+	os.system(f"echo 'Expire-Date: {ExpireDate}' >> foo")
+	os.system(f"echo 'Passphrase: {Passphrase}' >> foo")
+	os.system(f"echo '%commit' >> foo")
+	os.system(f"echo '%echo done' >> foo")
+	os.system("gpg --batch --generate-key foo")
+	os.system("gpg --list-secret-keys")
+	print(f'''Please Write Down your Passphrase\notherwise you will lose access: {Passphrase}''')
+	os.system("rm -f ./foo")
+
+template()

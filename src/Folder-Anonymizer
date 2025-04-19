@@ -1,0 +1,94 @@
+#!/bin/bash
+
+#python3 ~/.yubiCrypt/yubiCryptImporter/import.py
+touch cyber.block
+if [ -f "cyber.block" ]; then
+
+  rm cyber.block
+  rm identities.dict
+  # Set -e to exit on error
+  set -e
+
+  # Check if index file exists
+  if [ -f "index.age" ]; then
+    echo "[Starting]: Index file exists. Starting decryption and restoration..."
+
+    # Decrypt the index.age file
+    python3 ~/dcde/src/decrypt.py index.age
+
+    # Process each line in the decrypted index file
+    while IFS=, read -r beforecomma aftercomma permissions; do
+      echo "Restoring $beforecomma from encrypted file (looking for $aftercomma.age)"
+
+      # Find the encrypted file that matches the pattern
+      encrypted_file=$(find . -maxdepth 1 -name "*.age" | grep -F "$aftercomma" || true)
+
+      if [ -n "$encrypted_file" ]; then
+        echo "Found matching encrypted file: $encrypted_file"
+
+        # Decrypt the file (using the actual filename we found)
+        python3 ~/dcde/src/decrypt.py "$encrypted_file"
+
+        # Get just the base filename without .age extension
+        decrypted_file="${encrypted_file%.age}"
+
+        # Restore the original filename and permissions
+        if [ -f "$decrypted_file" ]; then
+          mv "$decrypted_file" "$beforecomma"
+          chmod "$permissions" "$beforecomma"
+          echo "Successfully restored $decrypted_file to $beforecomma with permissions $permissions"
+        else
+          echo "Error: $decrypted_file not found after decryption"
+          exit 1
+        fi
+      else
+        echo "Error: Could not find encrypted file matching $aftercomma"
+        echo "Available .age files:"
+        ls *.age || echo "No .age files found"
+        exit 1
+      fi
+    done <index
+
+    # Remove the decrypted index file
+    rm index
+
+  else
+    echo "[Starting]: No index file found. Starting encryption..."
+
+    # Process each file in the directory (ignoring subfolders)
+    for file in *; do
+      # Skip directories, the script itself, and index files
+      if [ -d "$file" ] ||
+         [ "$file" = "$0" ] ||
+         [ "$file" = "index" ] ||
+         [ "$file" = "README.md" ] ||
+         [ "$file" = "README.md.age" ] ||
+         [ "$file" = ".gitignore" ] ||
+         [ "$file" = ".pre-commit-config.yaml" ] ||
+         [ "$file" = ".cy_config.yaml" ] ||
+         [ "$file" = "index.age" ]; then
+        continue
+      fi
+
+      # Get the current file permissions
+      permissions=$(stat -c %a "$file")
+
+      # Generate a random 10-character name
+      chopname=$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 10)
+      echo "Encrypting $file as $chopname"
+
+      # Create an entry in the index file with permissions
+      echo "$file,$chopname,$permissions" >>/tmp/chopindex
+
+      # Encrypt the file
+      python3 ~/dcde/src/encrypt.py "$file"
+
+      # Rename the encrypted file
+      mv "$file.age" "$chopname.age"
+    done
+
+    echo "Encryption complete. Index file created."
+    mv /tmp/chopindex index
+    python3 ~/dcde/src/encrypt.py index
+  fi
+fi

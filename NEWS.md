@@ -1,0 +1,22 @@
+# VERSION 0.5.5
+## BUGFIX: Sa 19 Apr 2025 19:48:17 CEST
+ - Prettier CyberCraft Sourcecode refraction
+ - Further testing done
+  - [x] push
+  - [x] pull
+  - [x] encrypt 
+     - [ ] Part GPG Support
+     - [x] Full Yubikey Support 
+  - [x] encrypt file.txt
+     - [ ] Part GPG Support
+     - [x] Full Yubikey Support 
+  - [x] decrypt 
+     - [ ] Part GPG Support
+     - [x] Full Yubikey Support 
+  - [x] decrypt file.txt
+     - [ ] Part GPG Support
+     - [x] Full Yubikey Support 
+  - [x] --check
+  - [x] --version
+  - [x] --about
+
