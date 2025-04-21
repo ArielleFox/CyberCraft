@@ -2,9 +2,9 @@
 
 
 ## Version 0.5.5
+Please install yubicrypt [repo](https://github.com/ariellefox/yubicrypt)
 
 ### 🧪 Example CLI Usages:
-
 ./cybercraft init         # initializes repository hardening
 ./cybercraft push                 # encrypts files in folder you are currently in ==> Git add ==> git push
 ./cybercraft pull                 # git pulls ==> decrypts files in folder you are currently in
@@ -18,7 +18,6 @@
 
 
 # Credits List (If any missing please submit an edited version via pull request <3*)
-
 ## Yubikey Manager
 [repo](https://github.com/Yubico/yubikey-manager](https://github.com/Yubico/yubikey-manager)
 [contributors](https://github.com/Yubico/yubikey-manager/graphs/contributors)
@@ -33,6 +32,11 @@
 ## Age Plugin Yubikey
 [repo](https://github.com/str4d/age-plugin-yubikey)
 [contributors](https://github.com/str4d/age-plugin-yubikey/graphs/contributors)
+
+## Gitleaks
+forked from [repo](https://github.com/gitleaks/gitleaks)
+[fork](https://github.com/ariellefox/gitleaks)
+
 # Attention
 This release is functional but needs your help <3
 Q: How can I help?

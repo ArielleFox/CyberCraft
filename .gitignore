@@ -1,0 +1,9 @@
+formatted_identities.txt
+identities.dict
+.env
+.tmp
+.log
+**/.tmp/**
+**/.log/**
+sign_tools/botan-3.7.1/
+.cy_config.yaml

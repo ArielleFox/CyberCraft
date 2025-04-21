@@ -22,7 +22,7 @@ string quote(const string& str) {
 fs::path getHomeDirectory() {
   const char* home = getenv("HOME");
   if (home) return fs::path(home);
-  struct passwd *pw = getpwuid(getuid());
+ struct passwd *pw = getpwuid(getuid());
   if (pw) return fs::path(pw->pw_dir);
   throw runtime_error("Unable to determine home directory");
 }
