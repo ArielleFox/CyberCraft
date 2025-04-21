@@ -12,7 +12,7 @@
   ```
   - This methode supports the yubikey encryption methode using the modified yubicrypt (frontend) libary.
   ---
-  ## GPG Encryption:
+  ## GPG Encryption: [To Be Implamented]
   ```yaml
   methode: gpg
   ```
