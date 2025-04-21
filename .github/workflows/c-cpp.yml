@@ -16,4 +16,4 @@ jobs:
     - name: installing libs
       run: sudo apt-get install libyaml-cpp-dev -y
     - name: building cc binary
-      run: make build
+      run: make buildclean
