@@ -19,8 +19,8 @@
 
 # Credits List (If any missing please submit an edited version via pull request <3*)
 ## Yubikey Manager
-[yubikey-manager](https://github.com/Yubico/yubikey-manager](https://github.com/Yubico/yubikey-manager)
-[yubikey-manager contributors](https://github.com/Yubico/yubikey-manager/graphs/contributors)
+[yubikeymanager](https://github.com/Yubico/yubikey-manager](https://github.com/Yubico/yubikey-manager)
+[yubikeymanager contributors](https://github.com/Yubico/yubikey-manager/graphs/contributors)
 ## Age
 [age](https://github.com/FiloSottile/age)
 [age-contributors](https://github.com/FiloSottile/age/graphs/contributors)
