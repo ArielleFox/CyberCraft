@@ -18,16 +18,21 @@
 
 
 # Credits List (If any missing please submit an edited version via pull request <3*)
+
 ## Yubikey Manager
-[yubikeymanager](https://github.com/Yubico/yubikey-manager](https://github.com/Yubico/yubikey-manager)
-[yubikeymanager contributors](https://github.com/Yubico/yubikey-manager/graphs/contributors)
+[repo](https://github.com/Yubico/yubikey-manager](https://github.com/Yubico/yubikey-manager)
+[contributors](https://github.com/Yubico/yubikey-manager/graphs/contributors)
+
 ## Age
-[age](https://github.com/FiloSottile/age)
-[age-contributors](https://github.com/FiloSottile/age/graphs/contributors)
+[repo](https://github.com/FiloSottile/age)
+[contributors](https://github.com/FiloSottile/age/graphs/contributors)
  Authors:
  - Google LLC
  - Filippo Valsorda
 
+## Age Plugin Yubikey
+[repo](https://github.com/str4d/age-plugin-yubikey)
+[contributors](https://github.com/str4d/age-plugin-yubikey/graphs/contributors)
 # Attention
 This release is functional but needs your help <3
 Q: How can I help?
