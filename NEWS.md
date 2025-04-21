@@ -1,3 +1,4 @@
+## UPDATED yubicrypt repo cachyos support: Mo 21 Apr 2025 07:51:53 CEST
 # VERSION 0.5.5
 ## BUGFIX: Sa 19 Apr 2025 19:48:17 CEST
  - Prettier CyberCraft Sourcecode refraction
@@ -19,4 +20,3 @@
   - [x] --check
   - [x] --version
   - [x] --about
-
