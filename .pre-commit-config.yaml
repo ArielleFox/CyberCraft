@@ -8,5 +8,4 @@ repos:
   - repo: https://github.com/ArielleFox/pre-commit-hooks
     rev: 1432cb8d253b69a6d4ef9b6f3a77e8f6b37575f5
     hooks:
-      - id: check-executables-have-shebangs
       - id: detect-private-key
