@@ -14,6 +14,7 @@ Please install yubicrypt [repo](https://github.com/ariellefox/yubicrypt)
 ### 🧪 Example CLI Usages:
 ```bash
 ./cybercraft init         # initializes repository hardening
+./cybercraft update       # self updates to the latest version
 ./cybercraft push                 # encrypts files in folder you are currently in ==> Git add ==> git push
 ./cybercraft pull                 # git pulls ==> decrypts files in folder you are currently in
 ./cybercraft --about              # tool description

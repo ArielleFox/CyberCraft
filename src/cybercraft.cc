@@ -12,7 +12,7 @@
 namespace fs = std::filesystem;
 using namespace std;
 
-const string VERSION = "0.5.4";
+const string VERSION = "0.5.6";
 
 // Helper for safely building shell commands
 string quote(const string& str) {
@@ -194,7 +194,7 @@ void init() {
 }
 
 void show_help(const string& cmd) {
-  cerr << "Usage: " << cmd << " [\n    init \n    push \n     pull \n     --about \n      --version \n    --encrypt <FILE> or <nothing for folder>\n    --decrypt <FILE> or <nothing for folder>\n]" << endl;
+  cerr << "Usage: " << cmd << " [\n    init \n    update \n    push \n     pull \n     --about \n      --version \n    --encrypt <FILE> or <nothing for folder>\n    --decrypt <FILE> or <nothing for folder>\n]" << endl;
 }
 
 void generatePlotingEngine(const string& functionnameA, const string& functionnameB, const string& processname) {
@@ -250,6 +250,10 @@ void checkPreCommitConfig() {
 }
 
 
+void update() {
+  system("cd ~/CyberCraft && git pull && make && cd -");
+}
+
 
 int main(int argc, char* argv[]) {
   if (argc < 2) {
@@ -271,6 +275,8 @@ int main(int argc, char* argv[]) {
     cout << "Version: " << VERSION << endl;
   } else if (cmd == "init") {
     init();
+  } else if (cmd == "update") {
+    update();
   } else if (cmd == "push") {
     return push();
   } else if (cmd == "pull") {
