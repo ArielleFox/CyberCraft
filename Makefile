@@ -20,7 +20,7 @@ install:
 	
 build:
 	cd src;	make compile; cd ../
-	touch ~/.local/bin/cybercraft
 
 clean:
 	rm ~/.local/bin/cybercraft
+	touch ~/.local/bin/cybercraft
