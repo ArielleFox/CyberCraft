@@ -21,6 +21,9 @@ install:
 build:
 	cd src;	make compile; cd ../
 
+buildclean: build
+	rm ./cybercraft
+
 clean:
 	rm ~/.local/bin/cybercraft
 	touch ~/.local/bin/cybercraft
