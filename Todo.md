@@ -1,5 +1,4 @@
 # Features
-- [x] Github actions: build binary testing
 
 ## Algorithms
 ### Detection
