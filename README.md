@@ -1,5 +1,10 @@
 # CyberCraft
 
+## First Run
+./cybercraft init
+./cybercraft --check
+edit .cy_config.yaml with the methode of use
+for example if you use yubikey switch the value from none to yubikey
 
 ## Version 0.5.5
 Python version verified to work: 3.14
