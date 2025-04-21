@@ -11,6 +11,7 @@ Python version verified to work: 3.14
 Please install yubicrypt [repo](https://github.com/ariellefox/yubicrypt)
 
 ### 🧪 Example CLI Usages:
+```bash
 ./cybercraft init         # initializes repository hardening
 ./cybercraft push                 # encrypts files in folder you are currently in ==> Git add ==> git push
 ./cybercraft pull                 # git pulls ==> decrypts files in folder you are currently in
@@ -21,7 +22,7 @@ Please install yubicrypt [repo](https://github.com/ariellefox/yubicrypt)
 ./cybercraft --encrypt secrets.txt  # file-based
 ./cybercraft --decrypt            # folder-based via yubikey
 ./cybercraft --decrypt secrets.txt  # file-based
-
+```
 
 # Credits List (If any missing please submit an edited version via pull request <3*)
 ## Yubikey Manager
