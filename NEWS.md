@@ -1,4 +1,5 @@
 # VERSION 0.5.6
+ - [x] Github actions: build binary testing
 ## ADDED: Mo 21 Apr 2025 08:09:03 CEST
  - Update Command 
 ```bash
