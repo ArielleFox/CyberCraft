@@ -1,4 +1,6 @@
 # Features
+- [ ] Github actions: build binary
+
 ## Algorithms
 ### Detection
 - [x] - Encryption Methode Detection Via YAML Config File
