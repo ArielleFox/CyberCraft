@@ -33,9 +33,12 @@ Please install yubicrypt [repo](https://github.com/ariellefox/yubicrypt)
 [repo](https://github.com/str4d/age-plugin-yubikey)
 [contributors](https://github.com/str4d/age-plugin-yubikey/graphs/contributors)
 
+## Pre Commit Hooks
+[repo](https://github.com/pre-commit/pre-commit)
+[fork](https://github.com/ArielleFox/pre-commit-hooks)
+
 ## Gitleaks
-forked from [repo](https://github.com/gitleaks/gitleaks)
-[fork](https://github.com/ariellefox/gitleaks)
+[repo](https://github.com/gitleaks/gitleaks)
 
 # Attention
 This release is functional but needs your help <3
