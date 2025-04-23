@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-bash scripts/install/yubiCrypt_dependencies.sh
+bash ./install/yubiCrypt_dependencies.sh
 
 cd src; make all; cd -;
 

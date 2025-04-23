@@ -7,10 +7,6 @@ Devel notes
 ## Installation
 ```bash
 cd ~/
-git clone https://github.com/ArielleFox/yubiCrypt
-cd yubiCrypt
-./installer.py # or python3 ./installer.py
-cd ~/
 git clone https://github.com/ArielleFox/CyberCraft
 cd CyberCraft
 make
