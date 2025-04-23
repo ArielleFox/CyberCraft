@@ -21,7 +21,6 @@ make
 
 ## Version 0.5.61
 Python version verified to work: 3.14
-Please install yubicrypt [repo](https://github.com/ariellefox/yubicrypt)
 
 ### 🧪 Example CLI Usages:
 ```bash
