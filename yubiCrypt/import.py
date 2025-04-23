@@ -9,4 +9,4 @@ SERIAL: str = get_yubikey_serial()
 if __name__ == "__main__":
     get_ids()
     extract_ids()
-    os.system('mv formatted_identities.txt  ~/.yubiCrypt/keys/first.txt')
+    os.system('cp formatted_identities.txt  ~/.yubiCrypt/keys/first.txt')

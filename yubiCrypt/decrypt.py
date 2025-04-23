@@ -5,6 +5,52 @@ import subprocess
 import datetime
 import socket
 import sys
+import time
+from contextlib import contextmanager
+from typing import Generator, IO, Any
+from datetime import datetime
+
+@contextmanager
+def timer() -> Generator[None, Any, None]:
+    start_time: float = time.perf_counter()
+    print(f'Started at: {datetime.now():%H:%M:%S}')
+    try:
+        yield
+    finally:
+        end_time: float = time.perf_counter()
+        print(f'Ended at: {datetime.now():%H:%M:%S}')
+        print(f'Time: {end_time - start_time:.4f}s')
+
+@contextmanager
+def file_manager(path: str, mode: str) -> Generator[IO, Any, None]:
+    with timer():
+        file: IO= open(path, mode)
+        try:
+            yield file
+        except Exection as e:
+            print(e)
+        finally:
+            print('Closing ')
+            if file:
+                file.close()
+
+@contextmanager
+def rm_file(path: str) -> Generator[IO, Any, None]:
+    with timer():
+        file: IO = open(path)
+        print('Opening file')
+        try:
+            yield file
+        except FileNotFoundError:
+            print(f"Error: File '{file_name}' not found.")
+        except Exection as e:
+            print(e)
+        finally:
+            print('Closing file...')
+            if file:
+                file.close()
+                os.remove(path)
+                print(f"Removed '{path}' successfully.")
 
 
 def decrypt_file(file_path):
@@ -22,7 +68,7 @@ def decrypt_file(file_path):
         subprocess.run(command, check=True)
 
         # Confirm successful decryption
-        print(f"	SUCCESSFULLY DECRYPTED: {file_path} ==> {decrypted_file}")
+        print(f"	SUCCESSFULLY DECRYPTED! {file_path} ==> {decrypted_file}")
         os.remove(file_path)  # Remove the encrypted file
 
     except Exception as e:
@@ -43,15 +89,14 @@ def decrypt_file(file_path):
         print(failure_message)
 
         # Clean up keys directory
-        keys_dir = os.path.expanduser("~/.cybercraft/.yubiCrypt/keys/")
+        keys_dir = os.path.expanduser("~/.yubiCrypt/keys/")
         for key_file in os.listdir(keys_dir):
             os.remove(os.path.join(keys_dir, key_file))
 
         # Log failure to a temporary file
-        dirty_tmp_path = os.path.expanduser("~/.cybercraft/.yubiCrypt/dirty.tmp")
-        with open(dirty_tmp_path, "a") as dirty_tmp:
+        dirty_tmp_path = os.path.expanduser("~/.yubiCrypt/dirty.tmp")
+        with file_manager(dirty_tmp_path, "a") as dirty_tmp:
             dirty_tmp.write(f"{failure_message}\n")
-
         print("Decryption failed.")
 
 if __name__ == "__main__":

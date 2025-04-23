@@ -35,14 +35,14 @@ def check_yubikey_slots():
 def print_slot_status(slots_status):
     print("\nYubiKey Slot Status:")
     print("-" * 20)
-    print(f"{'Configured' if slots_status['slot1'] else 'Empty'}")
-    print(f"{'Configured' if slots_status['slot2'] else 'Empty'}")
+    print(f"Slot 1: {'Configured' if slots_status['slot1'] else 'Empty'}")
+    print(f"Slot 2: {'Configured' if slots_status['slot2'] else 'Empty'}")
 
 if __name__ == "__main__":
     try:
         print("Checking YubiKey slots...")
         slots_status = check_yubikey_slots()
-        #print_slot_status(slots_status)
+        print_slot_status(slots_status)
     except KeyboardInterrupt:
         print("\nOperation cancelled by user")
         sys.exit(0)

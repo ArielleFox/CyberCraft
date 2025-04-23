@@ -6,7 +6,36 @@ import threading
 import ast
 import os
 import queue
+import time
+from contextlib import contextmanager
+from typing import Generator, IO, Any
+from datetime import datetime
 
+@contextmanager
+def timer() -> Generator[None, Any, None]:
+    start_time: float = time.perf_counter()
+    print(f'Started at: {datetime.now():%H:%M:%S}')
+    try:
+        yield
+    finally:
+        end_time: float = time.perf_counter()
+        print(f'Ended at: {datetime.now():%H:%M:%S}')
+        print(f'Time: {end_time - start_time:.4f}s')
+
+
+@contextmanager
+def file_manager(path: str, mode: str) -> Generator[IO, Any, None]:
+    with timer():
+        file: IO= open(path, mode)
+        print('Opening file')
+        try:
+            yield file
+        except Exection as e:
+            print(e)
+        finally:
+            print('Closing file...')
+            if file:
+                file.close()
 class ThreadSafeDict:
     def __init__(self):
         self._dict = {}
@@ -56,7 +85,7 @@ def read_existing_data(filename='identities.dict'):
     """Read existing data from file if it exists"""
     if os.path.exists(filename):
         try:
-            with open(filename, 'r') as f:
+            with file_manager(filename, 'r') as f:
                 content = f.read()
                 if content:
                     return ast.literal_eval(content)
@@ -78,7 +107,7 @@ def compare_and_merge_data(new_data, existing_data):
 
 def save_data(data, filename='identities.dict'):
     """Save data to file"""
-    with open(filename, 'w') as f:
+    with file_manager(filename, 'w') as f:
         f.write(str(dict(data)))
 
 def run_yubikey_command(slot):
@@ -119,7 +148,7 @@ def process_slots_threaded(slot_range, max_workers=8):
 
     return shared_dict.to_dict()
 
-def print_sorted_results(results_dict) -> None:
+def print_sorted_results(results_dict):
     if results_dict:
         print("\nValid Slots Found (Sorted):")
         sorted_slots = OrderedDict(sorted(results_dict.items(), key=lambda x: x[0]))
@@ -129,7 +158,7 @@ def print_sorted_results(results_dict) -> None:
     else:
         print("No valid slots found.")
 
-def main() -> None:
+def main():
     # Read existing data
     existing_data = read_existing_data()
     print("Checking slots...")

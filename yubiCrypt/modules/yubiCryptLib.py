@@ -29,7 +29,7 @@ def get_yubikey_serial():
 if __name__ == "__main__":
     try:
         serial = get_yubikey_serial()
-        #print(f"YubiKey Serial Number: {serial}")
+        print(f"YubiKey Serial Number: {serial}")
     except KeyboardInterrupt:
         print("\nOperation cancelled by user")
         sys.exit(0)

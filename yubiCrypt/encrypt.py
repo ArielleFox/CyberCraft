@@ -5,6 +5,39 @@ import subprocess
 import datetime
 import socket
 import sys
+import time
+from contextlib import contextmanager
+from typing import Generator, IO, Any
+from datetime import datetime
+
+@contextmanager
+def timer() -> Generator[None, Any, None]:
+    start_time: float = time.perf_counter()
+    print(f'Started at: {datetime.now():%H:%M:%S}')
+    try:
+        yield
+    finally:
+        end_time: float = time.perf_counter()
+        print(f'Ended at: {datetime.now():%H:%M:%S}')
+        print(f'Time: {end_time - start_time:.4f}s')
+
+
+@contextmanager
+def file_manager(path: str, mode: str) -> Generator[IO, Any, None]:
+    with timer():
+        file: IO= open(path, mode)
+        print('Opening file')
+        try:
+            yield file
+        except Exection as e:
+            print(e)
+        finally:
+            print('Closing file...')
+            if file:
+                file.close()
+
+
+
 
 def encrypt_file(file_path):
     ident = "first.txt"
@@ -16,7 +49,7 @@ def encrypt_file(file_path):
             raise FileNotFoundError(f"Identity file not found: {curr}")
 
         # Extract recipient key
-        with open(curr, "r") as ident_file:
+        with file_manager(curr, "r") as ident_file:
             recipient_line = next(line for line in ident_file if "Recipient" in line)
             recipient_key = recipient_line[16:].strip()  # Extract key after "Recipient"
 
@@ -26,7 +59,7 @@ def encrypt_file(file_path):
         subprocess.run(command, check=True)
 
         # Confirm successful encryption
-        print(f"	SUCCESSFULLY ENCRYPTED: {file_path} ==> {encrypted_file}")
+        print(f"	SUCCESSFULLY ENCRYPTED! {file_path} ==> {encrypted_file}")
         os.remove(file_path)  # Remove the original file
 
     except Exception as e:
@@ -47,8 +80,8 @@ def encrypt_file(file_path):
         print(failure_message)
 
         # Log failure to a temporary file
-        dirty_tmp_path = os.path.expanduser("~/.cybercraft/.yubiCrypt/dirty.tmp")
-        with open(dirty_tmp_path, "a") as dirty_tmp:
+        dirty_tmp_path = os.path.expanduser("~/.yubiCrypt/dirty.tmp")
+        with file_manager(dirty_tmp_path, "a") as dirty_tmp:
             dirty_tmp.write(f"{failure_message}\n")
 
         print("Encryption failed.")
