@@ -1,3 +1,5 @@
+#!/bin/env python3
+
 from filemanager import file_manager
 import time
 import os
