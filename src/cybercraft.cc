@@ -12,7 +12,7 @@
 namespace fs = std::filesystem;
 using namespace std;
 
-const string VERSION = "0.5.6";
+const string VERSION = "0.5.61";
 
 // Helper for safely building shell commands
 string quote(const string& str) {
