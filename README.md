@@ -4,6 +4,14 @@ Devel notes
 // Python Version Suggestions: 3.14 (disabled GIL) For Best Results
 ```
 
+## Installation
+```bash
+cd ~/
+git clone https://github.com/ArielleFox/CyberCraft
+cd CyberCraft
+make
+```
+
 ## First Run
 ```bash
 ./cybercraft init
