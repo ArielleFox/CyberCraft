@@ -1,4 +1,8 @@
 # CyberCraft
+Devel notes
+```c
+// Python Version Suggestions: 3.14 (disabled GIL) For Best Results
+```
 
 ## First Run
 ```bash
