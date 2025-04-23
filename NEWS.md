@@ -1,3 +1,5 @@
+# VERSION 0.5.61 Mi 23 Apr 2025 19:51:30 CEST
+## Updated/Implamented YubiCrypt Memory Safety Update 
 # VERSION 0.5.6
 ## ADDED: Mo 21 Apr 2025 08:09:03 CEST
  - Update Command 
