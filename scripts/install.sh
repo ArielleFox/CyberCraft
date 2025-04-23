@@ -29,5 +29,5 @@ bash scripts/set_user.sh
 
 mv ./cybercraft ~/.local/bin/cybercraft
 cp ~/CyberCraft/src/Folder-Anonymizer ~/.cybercraft/shell/Folder-Anonymizer
-cp ~/CyberCraft/scripts/file-manager.py ~/.cybercraft/filemanager.py
+cp ~/CyberCraft/scripts/filemanager.py ~/.cybercraft/filemanager.py
 cp ~/CyberCraft/scripts/yubikeySettings.py  ~/.cybercraft/yubikeySettings.py
