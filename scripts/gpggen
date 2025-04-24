@@ -2,6 +2,7 @@
 import os
 from tomlkit.items import KeyType
 from typing import Never
+from modules.filemanager import file_manager
 
 def template():
     NameReal = input("Username: ")
@@ -13,17 +14,22 @@ def template():
     Passphrase = input("Password: ")
     NameComment = "Cybercraft Standard Basic Config Generated User Key"
     ExpireDate = 0
-    os.system(f"echo '%echo Generating a basic OpenPGP key' > /tmp/foo")
-    os.system(f"echo 'Key-Type: {KeyType}' >> /tmp/foo")
-    os.system(f"echo 'Subkey-Type: {SubkeyType}' >> /tmp/foo")
-    os.system(f"echo 'Subkey-Length: {SubkeyLength}' >> /tmp/foo")
-    os.system(f"echo 'Name-Real: {NameReal}' >> /tmp/foo")
-    os.system(f"echo 'Name-Comment: {NameComment}' >> /tmp/foo")
-    os.system(f"echo 'Name-Email: {NameEmail}' >> /tmp/foo")
-    os.system(f"echo 'Expire-Date: {ExpireDate}' >> /tmp/foo")
-    os.system(f"echo 'Passphrase: {Passphrase}' >> /tmp/foo")
-    os.system(f"echo '%commit' >> /tmp/foo")
-    os.system(f"echo '%echo done' >> /tmp/foo")
+
+    with file_manager('/tmp/foo', 'w') as f:
+        f.write(f'%echo Generating a basic OpenPGP key\n')
+
+    with file_manager('/tmp/foo', 'a') as f:
+        f.write(f'Key-Type: {KeyType}\n')
+        f.write(f'Subkey-Type: {SubkeyType}\n')
+        f.write(f'Subkey-Length: {SubkeyLength}\n')
+        f.write(f'Name-Real: {NameReal}\n')
+        f.write(f'Name-Comment: {NameComment}\n')
+        f.write(f'Name-Email: {NameEmail}\n')
+        f.write(f'Expire-Date: {ExpireDate}\n')
+        f.write(f'Passphrase: {Passphrase}\n')
+        f.write(f'%commit\n')
+        f.write(f'%echo done\n')
+
     os.system("gpg --batch --generate-key /tmp/foo")
     os.remove('/tmp/foo')
     os.system("gpg --list-secret-keys")
