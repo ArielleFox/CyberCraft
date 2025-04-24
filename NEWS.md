@@ -1,6 +1,7 @@
 
 # VERSION 0.5.7 Do 24 Apr 2025 10:20:37 CEST
 - [x] GPG Key Generator + Config Check (case: no key value assigned)
+- [x] GPG File Encryption + Decryption
 
 # VERSION 0.5.61 Mi 23 Apr 2025 19:51:30 CEST
 ## Updated/Implamented YubiCrypt Memory Safety Update 
