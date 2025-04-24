@@ -14,10 +14,11 @@
 - [x] - Python Wrapper For The Age Encryption Yubikey Plugin Import
 - [x] - Python Wrapper For The Age Encryption Yubikey Plugin Log Failed Attempts
 ### GPG
-- [ ] - Selection Of Libaries To Choose From For GPG Encryption
 - [x] - Generator
-- [ ] - Encrypt
-- [ ] - Decrypt
+- [x] - Encrypt Files
+- [x] - Decrypt File
+- [ ] - Encrypt Folders
+- [ ] - Decrypt Folders
 - [x] - Validation Of Existing Keys before encryption / decryption
 # Algorithm Implementaion
 - (Detection + Anonymizer) Folder-Algorithm [Bash] & (wrapper for yubikey-age-plugin) yubicrypt [Python] 
