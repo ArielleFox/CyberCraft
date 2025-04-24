@@ -28,6 +28,7 @@ Python version verified to work: 3.14
 ./cybercraft update       # self updates to the latest version
 ./cybercraft push                 # encrypts files in folder you are currently in ==> Git add ==> git push
 ./cybercraft pull                 # git pulls ==> decrypts files in folder you are currently in
+./cybercraft --newgpgkey          # Generates new GPG Keypair
 ./cybercraft --about              # tool description
 ./cybercraft --version            # version number
 ./cybercraft --check              # checks the current git repository + configurations
