@@ -8,6 +8,7 @@ reinstallvenv:
 
 audit: installvenv
 	pip-audit --fix --requirement requirements.txt
+	cd yubiCrypt; bandit import.py; cd -;
 
 test: build
 	rm -rf /tmp/valgrind_cybercraft/

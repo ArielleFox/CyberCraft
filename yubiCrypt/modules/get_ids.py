@@ -36,6 +36,7 @@ def file_manager(path: str, mode: str) -> Generator[IO, Any, None]:
             print('Closing file...')
             if file:
                 file.close()
+
 class ThreadSafeDict:
     def __init__(self):
         self._dict = {}
@@ -159,26 +160,27 @@ def print_sorted_results(results_dict):
         print("No valid slots found.")
 
 def main():
-    # Read existing data
-    existing_data = read_existing_data()
-    print("Checking slots...")
+    with timer():
+        # Read existing data
+        existing_data = read_existing_data()
+        print("Checking slots...")
 
-    # Process slots with threads
-    slot_range = range(22)  # 0-21
-    results = process_slots_threaded(slot_range)
+        # Process slots with threads
+        slot_range = range(22)  # 0-21
+        results = process_slots_threaded(slot_range)
 
-    # Final results sorted by slot number
-    print("\nFinal Results:")
-    print_sorted_results(results)
+        # Final results sorted by slot number
+        print("\nFinal Results:")
+        print_sorted_results(results)
 
-    # Compare and merge with existing data
-    merged_data, changes = compare_and_merge_data(results, existing_data)
+        # Compare and merge with existing data
+        merged_data, changes = compare_and_merge_data(results, existing_data)
 
-    if changes:
-        print("\nNew changes detected. Updating file...")
-        save_data(merged_data)
-    else:
-        print("\nNo new changes detected. File remains unchanged.")
+        if changes:
+            print("\nNew changes detected. Updating file...")
+            save_data(merged_data)
+        else:
+            print("\nNo new changes detected. File remains unchanged.")
 
 if __name__ == "__main__":
     main()

@@ -69,7 +69,7 @@ def decrypt_file(file_path):
             subprocess.run(command, check=True)
 
             # Confirm successful decryption
-            print(f"	SUCCESSFULLY DECRYPTED! {file_path} ==> {decrypted_file}")
+            print(f"	   SUCCESSFULLY DECRYPTED: {file_path} ==> {decrypted_file}")
             os.remove(file_path)  # Remove the encrypted file
 
         except Exception as e:
