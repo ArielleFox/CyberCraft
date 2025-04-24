@@ -92,3 +92,5 @@ if [ -f "cyber.block" ]; then
     python3 ~/dcde/src/encrypt.py index
   fi
 fi
+
+rm -f formatted_identities.txt 
