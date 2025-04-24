@@ -34,5 +34,5 @@ cp ~/CyberCraft/src/Folder-Anonymizer ~/.cybercraft/shell/Folder-Anonymizer
 cp ~/CyberCraft/scripts/filemanager.py ~/.cybercraft/modules/filemanager.py
 cp ~/CyberCraft/scripts/gpggen ~/.cybercraft/gpggen
 cp ~/CyberCraft/requirements.txt ~/.cybercraft/requirements.txt
-python3 -m venv ~/.cybercraft/cybercraft-venv; source ~/.cybercraft/cybercraft-venv/bin/activate; python3 -m pip install -r ~/.cybercraft/requirements.txt; deactivate;
+#python3 -m venv ~/.cybercraft/cybercraft-venv; source ~/.cybercraft/cybercraft-venv/bin/activate; python3 -m pip install -r ~/.cybercraft/requirements.txt; deactivate;
 cp ~/CyberCraft/scripts/yubikeySettings.py  ~/.cybercraft/yubikeySettings.py
