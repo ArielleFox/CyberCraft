@@ -24,17 +24,16 @@ def timer() -> Generator[None, Any, None]:
 
 @contextmanager
 def file_manager(path: str, mode: str) -> Generator[IO, Any, None]:
-    with timer():
-        file: IO= open(path, mode)
-        print('Opening file')
-        try:
-            yield file
-        except Exection as e:
-            print(e)
-        finally:
-            print('Closing file...')
-            if file:
-                file.close()
+    file: IO= open(path, mode)
+    print('Opening file')
+    try:
+        yield file
+    except Exection as e:
+        print(e)
+    finally:
+        print('Closing file...')
+        if file:
+            file.close()
 
 
 
@@ -42,49 +41,49 @@ def file_manager(path: str, mode: str) -> Generator[IO, Any, None]:
 def encrypt_file(file_path):
     ident = "first.txt"
     curr = os.path.expanduser(f"~/.yubiCrypt/keys/{ident}")
+    with timer():
+        try:
+            # Check if the identity file exists
+            if not os.path.isfile(curr):
+                raise FileNotFoundError(f"Identity file not found: {curr}")
 
-    try:
-        # Check if the identity file exists
-        if not os.path.isfile(curr):
-            raise FileNotFoundError(f"Identity file not found: {curr}")
+            # Extract recipient key
+            with file_manager(curr, "r") as ident_file:
+                recipient_line = next(line for line in ident_file if "Recipient" in line)
+                recipient_key = recipient_line[16:].strip()  # Extract key after "Recipient"
 
-        # Extract recipient key
-        with file_manager(curr, "r") as ident_file:
-            recipient_line = next(line for line in ident_file if "Recipient" in line)
-            recipient_key = recipient_line[16:].strip()  # Extract key after "Recipient"
+            # Encrypt the file using `age`
+            encrypted_file = f"{file_path}.age"
+            command = ["age", "-r", recipient_key, "-o", encrypted_file, file_path]
+            subprocess.run(command, check=True)
 
-        # Encrypt the file using `age`
-        encrypted_file = f"{file_path}.age"
-        command = ["age", "-r", recipient_key, "-o", encrypted_file, file_path]
-        subprocess.run(command, check=True)
+            # Confirm successful encryption
+            print(f"	SUCCESSFULLY ENCRYPTED! {file_path} ==> {encrypted_file}")
+            os.remove(file_path)  # Remove the original file
 
-        # Confirm successful encryption
-        print(f"	SUCCESSFULLY ENCRYPTED! {file_path} ==> {encrypted_file}")
-        os.remove(file_path)  # Remove the original file
+        except Exception as e:
+            # Handle encryption failure
+            print("Reporting Failed Encryption Attempt")
 
-    except Exception as e:
-        # Handle encryption failure
-        print("Reporting Failed Encryption Attempt")
+            # Log failure details
+            user = os.getlogin()
+            hostname = socket.gethostname()
+            timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            os_type = os.name
 
-        # Log failure details
-        user = os.getlogin()
-        hostname = socket.gethostname()
-        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        os_type = os.name
+            failure_message = (
+                f"401 Unauthorized {user}@{hostname}\n"
+                f"{timestamp} {os_type}\n"
+                "ENCRYPTION FAILED"
+            )
+            print(failure_message)
 
-        failure_message = (
-            f"401 Unauthorized {user}@{hostname}\n"
-            f"{timestamp} {os_type}\n"
-            "ENCRYPTION FAILED"
-        )
-        print(failure_message)
+            # Log failure to a temporary file
+            dirty_tmp_path = os.path.expanduser("~/.yubiCrypt/dirty.tmp")
+            with file_manager(dirty_tmp_path, "a") as dirty_tmp:
+                dirty_tmp.write(f"{failure_message}\n")
 
-        # Log failure to a temporary file
-        dirty_tmp_path = os.path.expanduser("~/.yubiCrypt/dirty.tmp")
-        with file_manager(dirty_tmp_path, "a") as dirty_tmp:
-            dirty_tmp.write(f"{failure_message}\n")
-
-        print("Encryption failed.")
+            print("Encryption failed.")
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
