@@ -1,30 +1,56 @@
 #!/bin/env python3
 import os
+from tomlkit.items import KeyType
+from typing import Never
 
 def template():
-	KeyType = 'DSA'
-	SubkeyLength = 1024
-	SubkeyType = "ELG-E"
-	DSAKeyLength = 1024
-	NameReal = "Automated Key"
-	NameComment = "Cybercraft Standard User Key"
-	NameEmail = "foo@bar.foobar"
-	ExpireDate = 0
-	Passphrase = input("Password: ")
-	os.system(f"echo '%echo Generating a basic OpenPGP key' > foo")
-	os.system(f"echo 'Key-Type: {KeyType}' >> foo")
-	os.system(f"echo 'Subkey-Type: {SubkeyType}' >> foo")
-	os.system(f"echo 'Subkey-Length: {SubkeyLength}' >> foo")
-	os.system(f"echo 'Name-Real: {NameReal}' >> foo")
-	os.system(f"echo 'Name-Comment: {NameComment}' >> foo")
-	os.system(f"echo 'Name-Email: {NameEmail}' >> foo")
-	os.system(f"echo 'Expire-Date: {ExpireDate}' >> foo")
-	os.system(f"echo 'Passphrase: {Passphrase}' >> foo")
-	os.system(f"echo '%commit' >> foo")
-	os.system(f"echo '%echo done' >> foo")
-	os.system("gpg --batch --generate-key foo")
-	os.system("gpg --list-secret-keys")
-	print(f'''Please Write Down your Passphrase\notherwise you will lose access: {Passphrase}''')
-	os.system("rm -f ./foo")
+    NameReal = input("Username: ")
+    KeyType = 'DSA'
+    SubkeyLength = 1024
+    SubkeyType = "ELG-E"
+    DSAKeyLength = 1024
+    NameEmail: str = input("Email Address: ")
+    Passphrase = input("Password: ")
+    NameComment = "Cybercraft Standard Basic Config Generated User Key"
+    ExpireDate = 0
+    os.system(f"echo '%echo Generating a basic OpenPGP key' > /tmp/foo")
+    os.system(f"echo 'Key-Type: {KeyType}' >> /tmp/foo")
+    os.system(f"echo 'Subkey-Type: {SubkeyType}' >> /tmp/foo")
+    os.system(f"echo 'Subkey-Length: {SubkeyLength}' >> /tmp/foo")
+    os.system(f"echo 'Name-Real: {NameReal}' >> /tmp/foo")
+    os.system(f"echo 'Name-Comment: {NameComment}' >> /tmp/foo")
+    os.system(f"echo 'Name-Email: {NameEmail}' >> /tmp/foo")
+    os.system(f"echo 'Expire-Date: {ExpireDate}' >> /tmp/foo")
+    os.system(f"echo 'Passphrase: {Passphrase}' >> /tmp/foo")
+    os.system(f"echo '%commit' >> /tmp/foo")
+    os.system(f"echo '%echo done' >> /tmp/foo")
+    os.system("gpg --batch --generate-key /tmp/foo")
+    os.remove('/tmp/foo')
+    os.system("gpg --list-secret-keys")
+    print('Please Write Down your Passphrase\notherwise you will lose access')
 
-template()
+
+def expert_guide():
+    print('PLACEHOLDER')
+
+def interactive_guide():
+    print('''BASIC CONFIGURATION:
+ --------------------
+ KeyType      - DSA
+ SubkeyLength - 1024
+ SubkeyType   - ELG-E
+ DSAKeyLength - 1024
+ Expires      - Never
+ --------------------
+        ''')
+    basic = input('Do you wanna use the basic config? <y/n>: ')
+    if basic.upper() == 'Y':
+        template()
+    elif basic.upper() == 'N':
+        expert_guide()
+    else:
+        print('Invalid user input.')
+        interactive_guide()
+
+
+interactive_guide()

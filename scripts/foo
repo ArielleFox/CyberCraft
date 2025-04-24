@@ -1,0 +1,11 @@
+%echo Generating a basic OpenPGP key
+Key-Type: DSA
+Subkey-Type: ELG-E
+Subkey-Length: 1024
+Name-Real: Ashley Bashly
+Name-Comment: Cybercraft Standard Basic Config Generated User Key
+Name-Email: contact@arielle.quest
+Expire-Date: 0
+Passphrase: PASSWORD
+%commit
+%echo done

@@ -12,7 +12,7 @@
 namespace fs = std::filesystem;
 using namespace std;
 
-const string VERSION = "0.5.61";
+const string VERSION = "0.5.7";
 
 // Helper for safely building shell commands
 string quote(const string& str) {
@@ -41,6 +41,11 @@ void printMaskot() {
     cerr << "Mascot not found: " << mascotPath << endl;
   }
 }
+
+void generate_gpg_key() {
+    system("source ~/.cybercraft/cybercraft-venv/bin/activate; python3 ~/.cybercraft/gpggen; deactivate;");
+}
+
 
 string configfile_value(const string& config_value) {
   try {
@@ -179,7 +184,7 @@ void check_cy_config() {
     string method = get_encryption_methode();
     if (method == "gpg" && get_gpg_keyname() == "nothing") {
       cerr << "Missing GPG keyname, running keygen..." << endl;
-      system("python3 ~/.cybercraft/gpggen");
+      system("source ~/.cybercraft/cybercraft-venv/bin/activate; python3 ~/.cybercraft/gpggen; deactivate;");
     }
   }
 }
@@ -194,7 +199,7 @@ void init() {
 }
 
 void show_help(const string& cmd) {
-  cerr << "Usage: " << cmd << " [\n    init \n    update \n    push \n     pull \n     --about \n      --version \n    --encrypt <FILE> or <nothing for folder>\n    --decrypt <FILE> or <nothing for folder>\n]" << endl;
+  cerr << "Usage: " << cmd << " [\n    init \n    update \n    push \n     pull \n     --about \n      --newgpgkey Generate a new GPG Key.\n      --version \n    --encrypt <FILE> or <nothing for folder>\n    --decrypt <FILE> or <nothing for folder>\n]" << endl;
 }
 
 void generatePlotingEngine(const string& functionnameA, const string& functionnameB, const string& processname) {
@@ -273,6 +278,8 @@ int main(int argc, char* argv[]) {
      checkPreCommitConfig();
   } else if (cmd == "--version") {
     cout << "Version: " << VERSION << endl;
+  } else if (cmd == "--newgpgkey") {
+    generate_gpg_key();
   } else if (cmd == "init") {
     init();
   } else if (cmd == "update") {

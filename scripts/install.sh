@@ -6,6 +6,8 @@ bash ./install/yubiCrypt_dependencies.sh
 cd src; make all; cd -;
 
 mkdir -p ~/.cybercraft/env/
+mkdir -p ~/.cybercraft/modules/
+touch ~/.cybercraft/modules/__init__.py
 mkdir -p ~/.cybercraft/.yubiCrypt/keys
 mkdir -p ~/.cybercraft/.yubiCrypt/yubiCryptImporter/modules/
 
@@ -29,5 +31,8 @@ bash scripts/set_user.sh
 
 mv ./cybercraft ~/.local/bin/cybercraft
 cp ~/CyberCraft/src/Folder-Anonymizer ~/.cybercraft/shell/Folder-Anonymizer
-cp ~/CyberCraft/scripts/filemanager.py ~/.cybercraft/filemanager.py
+cp ~/CyberCraft/scripts/filemanager.py ~/.cybercraft/modules/filemanager.py
+cp ~/CyberCraft/scripts/gpggen ~/.cybercraft/gpggen
+cp ~/CyberCraft/requirements.txt ~/.cybercraft/requirements.txt
+python3 -m venv ~/.cybercraft/cybercraft-venv; source ~/.cybercraft/cybercraft-venv/bin/activate; python3 -m pip install -r ~/.cybercraft/requirements.txt; deactivate;
 cp ~/CyberCraft/scripts/yubikeySettings.py  ~/.cybercraft/yubikeySettings.py
