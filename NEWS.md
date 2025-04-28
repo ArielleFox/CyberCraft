@@ -25,13 +25,13 @@
      - [ ] Part GPG Support
      - [x] Full Yubikey Support 
   - [x] encrypt file.txt
-     - [ ] Part GPG Support
+     - [x] Part GPG Support
      - [x] Full Yubikey Support 
   - [x] decrypt 
-     - [ ] Part GPG Support
+     - [x] Part GPG Support
      - [x] Full Yubikey Support 
   - [x] decrypt file.txt
-     - [ ] Part GPG Support
+     - [x] Part GPG Support
      - [x] Full Yubikey Support 
   - [x] --check
   - [x] --version

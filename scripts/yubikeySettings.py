@@ -19,6 +19,7 @@ def update_yubikey_id(filename: str):
 		os.system(f'cp ~/.cybercraft/.yubiCrypt/keys/first.txt {filename}')
 		
 def main():
+	print('GIL Status: ', sys._is_gil_enabled())  # Should return False
 	help_text = '''
 command               description
 ---------------------|-----------------------------------------------

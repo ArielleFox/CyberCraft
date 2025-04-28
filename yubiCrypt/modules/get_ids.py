@@ -19,23 +19,21 @@ def timer() -> Generator[None, Any, None]:
         yield
     finally:
         end_time: float = time.perf_counter()
-        print(f'Ended at: {datetime.now():%H:%M:%S}')
         print(f'Time: {end_time - start_time:.4f}s')
 
 
 @contextmanager
 def file_manager(path: str, mode: str) -> Generator[IO, Any, None]:
-    with timer():
-        file: IO= open(path, mode)
-        print('Opening file')
-        try:
-            yield file
-        except Exection as e:
-            print(e)
-        finally:
-            print('Closing file...')
-            if file:
-                file.close()
+    file: IO= open(path, mode)
+    print('Opening file')
+    try:
+        yield file
+    except Exection as e:
+        print(e)
+    finally:
+        print('Closing file...')
+        if file:
+            file.close()
 
 class ThreadSafeDict:
     def __init__(self):
@@ -55,7 +53,7 @@ class ThreadSafeDict:
             return self._dict.copy().items()
 
     def keys(self):
-        with self._lock:
+       with self._lock:
             return self._dict.copy().keys()
 
     def __bool__(self):
@@ -130,7 +128,7 @@ def worker(slot: int, shared_dict: ThreadSafeDict, printer: ResultPrinter) -> No
         shared_dict[slot] = result
         printer.print(f"Found valid slot {slot}: {result}")
 
-def process_slots_threaded(slot_range, max_workers=8):
+def process_slots_threaded(slot_range, max_workers=30):
     shared_dict = ThreadSafeDict()
     printer = ResultPrinter()
 
@@ -159,12 +157,12 @@ def print_sorted_results(results_dict):
     else:
         print("No valid slots found.")
 
+
 def main():
     with timer():
         # Read existing data
         existing_data = read_existing_data()
-        print("Checking slots...")
-
+        # print("Checking slots...")
         # Process slots with threads
         slot_range = range(22)  # 0-21
         results = process_slots_threaded(slot_range)
