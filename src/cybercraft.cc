@@ -12,7 +12,7 @@
 namespace fs = std::filesystem;
 using namespace std;
 
-const string VERSION = "0.5.7";
+const string VERSION = "0.5.7-python3.14t";
 
 // Helper for safely building shell commands
 string quote(const string& str) {
@@ -117,7 +117,7 @@ void yubikey_encryption(bool folder, const string& value) {
   ostringstream cmd;
   fs::path home = getHomeDirectory();
   if (folder) {
-    cmd << "python3 " << quote((home / "dcde/src/encrypt.py").string()) << " " << quote(value);
+    cmd << "python3.14t " << quote((home / "dcde/src/encrypt.py").string()) << " " << quote(value);
   } else {
     cmd << quote((home / ".cybercraft/shell/Folder-Anonymizer").string());
   }
@@ -128,7 +128,7 @@ void yubikey_decryption(bool folder, const string& value) {
   ostringstream cmd;
   fs::path home = getHomeDirectory();
   if (folder) {
-    cmd << "python3 " << quote((home / "dcde/src/decrypt.py").string()) << " " << quote(value);
+    cmd << "python3.14t " << quote((home / "dcde/src/decrypt.py").string()) << " " << quote(value);
   } else {
     cmd << quote((home / ".cybercraft/shell/Folder-Anonymizer").string());
   }
