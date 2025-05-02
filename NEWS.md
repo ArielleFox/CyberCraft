@@ -1,3 +1,7 @@
+# VERSION 0.5.71 Fr 02 Mai 2025 15:37:30 CEST
+- [x] Detection of parrent directory equals git repo 
+- [x] Code Refracturing: +Checking.cc +Checking.hh 
+	Parting code into more readable logic <3
 
 # VERSION 0.5.7 Do 24 Apr 2025 10:20:37 CEST
 - [x] GPG Key Generator + Config Check (case: no key value assigned)
@@ -25,13 +29,13 @@
      - [ ] Part GPG Support
      - [x] Full Yubikey Support 
   - [x] encrypt file.txt
-     - [ ] Part GPG Support
+     - [x] Part GPG Support
      - [x] Full Yubikey Support 
   - [x] decrypt 
-     - [ ] Part GPG Support
+     - [x] Part GPG Support
      - [x] Full Yubikey Support 
   - [x] decrypt file.txt
-     - [ ] Part GPG Support
+     - [x] Part GPG Support
      - [x] Full Yubikey Support 
   - [x] --check
   - [x] --version

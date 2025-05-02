@@ -33,6 +33,11 @@ build:
 
 buildclean: build
 
+
+commit:
+	bash .commit.sh
+
+
 clean:
 	rm ~/.local/bin/cybercraft
 	touch ~/.local/bin/cybercraft
