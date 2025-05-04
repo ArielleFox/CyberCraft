@@ -25,6 +25,7 @@ install:
 	mkdir -p ~/.cybercraft/art/
 	mkdir -p ~/.cybercraft/shell/
 	# Copying Data
+	cp .gitignore ~/.cybercraft/.gitignore ; cp .pre-commit-config.yaml  ~/.cybercraft/.pre-commit-config.yaml;
 	cp src/art/mascot ~/.cybercraft/art/
 	cd scripts; bash install.sh; cd -;
 	
