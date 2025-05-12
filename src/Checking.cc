@@ -16,7 +16,7 @@ using namespace std;
 
 namespace cy {
 
-    const string VERSION = "0.5.71";
+    const string VERSION = "0.5.8";
 
     fs::path getHomeDirectory() {
         const char* home = getenv("HOME");

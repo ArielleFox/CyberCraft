@@ -17,7 +17,7 @@ namespace fs = std::filesystem;
 
 using cy::quote;
 
-const string VERSION = "0.5.71";
+const string VERSION = "0.5.8";
 
 
 
