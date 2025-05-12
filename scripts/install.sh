@@ -31,7 +31,7 @@ cp scripts/.gitignore ~/.cybercraft/.gitignore
 cp scripts/gpggen ~/.cybercraft/gpggen; chmod +x ~/.cybercraft/gpggen;
 bash scripts/set_user.sh
 
-mv ./cybercraft ~/.local/bin/cybercraft
+mv ./src/bin/cybercraft ~/.local/bin/cybercraft
 cp ~/CyberCraft/src/Folder-Anonymizer ~/.cybercraft/shell/Folder-Anonymizer
 cp ~/CyberCraft/scripts/filemanager.py ~/.cybercraft/modules/filemanager.py
 cp ~/CyberCraft/scripts/gpggen ~/.cybercraft/gpggen
