@@ -26,18 +26,6 @@ pub async fn list_all_folder() -> io::Result<()> {
 
     while let Some(dir) = dir_opt {
         println!("\n🔍 Searching in directory: {}", dir.display());
-        match command_runner::run_command("ls", &["", &dir.display().to_string()]) {
-            Ok(output) => {
-                // Print the command's output (for demonstration)
-                if !output.stdout.is_empty() {
-                    println!("Output:\n{}", String::from_utf8_lossy(&output.stdout));
-                }
-            }
-            Err(e) => {
-                eprintln!("❌ Error running command: {}", e);
-            }
-        }
-
         // Check for .cy_config.yaml
         let config_path = dir.join(CY_CONFIG_FILE);
         if config_path.exists() && config_path.is_file() && !found_config {
