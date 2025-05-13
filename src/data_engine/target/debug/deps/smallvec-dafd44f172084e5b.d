@@ -1,5 +1,0 @@
-/home/ashley/CyberCraft/src/data_engine/target/debug/deps/libsmallvec-dafd44f172084e5b.rmeta: /home/ashley/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/smallvec-1.15.0/src/lib.rs
-
-/home/ashley/CyberCraft/src/data_engine/target/debug/deps/smallvec-dafd44f172084e5b.d: /home/ashley/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/smallvec-1.15.0/src/lib.rs
-
-/home/ashley/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/smallvec-1.15.0/src/lib.rs:

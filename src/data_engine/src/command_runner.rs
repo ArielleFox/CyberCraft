@@ -1,22 +1,81 @@
-use std::process::{Command, Output};
-use std::io::{self};
+use tokio::process::Command;
+use tokio::task;
+use std::path::{PathBuf};
+use std::ffi::OsStr;
+use std::process::Stdio;
+use anyhow::{Context, Result};
+use walkdir::{WalkDir, DirEntry};
+use futures::future::join_all;
 
-/// This function runs a terminal command and returns the result.
-pub fn run_command(command: &str, args: &[&str]) -> io::Result<Output> {
-    // Run the command with the given arguments
-    let output = Command::new(command)
-        .args(args)
-        .output()?; // Executes the command and returns the result
+/// Check if a file should be processed (not hidden, is a regular file)
+fn is_valid_file(entry: &DirEntry) -> bool {
+    let file_name = entry.file_name().to_string_lossy();
+    if file_name.starts_with('.') {
+        return false;
+    }
+    entry.file_type().is_file()
+}
 
-    // Optionally, print the output to the console
-    if !output.stdout.is_empty() {
-        print!("{}", String::from_utf8_lossy(&output.stdout));
+/// Asynchronously run encrypt/decrypt script for a single file
+async fn process_file(path: PathBuf) -> Result<()> {
+    let script = if path.extension() == Some(OsStr::new("age")) {
+        "~/dcde/src/decrypt.py"
+    } else {
+        "~/dcde/src/encrypt.py"
+    };
+
+    let script_path = shellexpand::tilde(script);
+    println!("▶️ Processing: {}", path.display());
+
+    let status = Command::new("python3")
+    .arg(script_path.to_string())
+    .arg(path.to_string_lossy().to_string())
+    .stdout(Stdio::inherit())
+    .stderr(Stdio::inherit())
+    .status()
+    .await
+    .with_context(|| format!("Failed to run script on file: {}", path.display()))?;
+
+    if status.success() {
+        println!("✅ Done: {}", path.display());
+    } else {
+        eprintln!("❌ Script failed: {}", path.display());
     }
 
-    if !output.stderr.is_empty() {
-        eprint!("{}", String::from_utf8_lossy(&output.stderr));
+    Ok(())
+}
+
+/// Recursively process all valid files under a directory in parallel
+pub async fn run_file_processor(root_dir: &str) -> Result<()> {
+    let root = PathBuf::from(root_dir);
+
+    if !root.exists() || !root.is_dir() {
+        return Err(anyhow::anyhow!("Not a valid directory: {}", root.display()));
     }
 
-    // Return the output of the command
-    Ok(output)
+    let tasks: Vec<_> = WalkDir::new(&root)
+    .into_iter()
+    .filter_map(Result::ok)
+    .filter(is_valid_file)
+    .map(|entry| {
+        let path = entry.into_path();
+        task::spawn(async move {
+            if let Err(e) = process_file(path.clone()).await {
+                eprintln!("❌ Error: {} — {}", path.display(), e);
+            }
+        })
+    })
+    .collect();
+
+    let total = tasks.len();
+
+    if total == 0 {
+        println!("ℹ️ No visible files found to process in: {}", root.display());
+    } else {
+        println!("🔄 Processing {} files in parallel...", total);
+        join_all(tasks).await;
+        println!("🎉 Finished processing all files.");
+    }
+
+    Ok(())
 }

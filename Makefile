@@ -42,3 +42,4 @@ commit:
 clean:
 	rm ~/.local/bin/cybercraft
 	touch ~/.local/bin/cybercraft
+	rm -rf src/data_engine/target/
